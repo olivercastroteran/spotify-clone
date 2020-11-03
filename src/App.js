@@ -1,3 +1,4 @@
+import './App.scss';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Home, Favorites, User, NotFound } from './views';
 import Sidebar from './components/sidebar/Sidebar';
@@ -6,7 +7,7 @@ import Player from './components/player/Player';
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className="app">
         <Sidebar />
         <Player />
         <Switch>
