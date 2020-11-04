@@ -5,6 +5,8 @@
   color: #ccc;
   padding: 1.5rem 0.5rem;
   max-width: 250px;
+  display: flex;
+  flex-direction: column;
 
   a {
     text-decoration: none;
@@ -62,6 +64,53 @@
         svg path {
           fill: #fff;
         }
+      }
+    }
+  }
+
+  &__playlists {
+    flex: 1;
+    margin: 1rem;
+
+    h4 {
+      letter-spacing: 2px;
+      font-weight: 100;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__pro {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    svg {
+      margin-top: -3rem;
+    }
+
+    &--btn {
+      text-decoration: none;
+      background-color: #1ed760;
+      padding: 0.5rem;
+      width: 70%;
+      margin: 1rem auto 0 auto;
+      border-radius: 50px;
+      font-size: 1rem;
+      color: #191414;
+      text-align: center;
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: #1db954;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        transform: scale(1);
       }
     }
   }

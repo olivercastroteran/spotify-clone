@@ -1,0 +1,10 @@
+.playlist {
+  cursor: pointer;
+  opacity: 0.75;
+  margin-bottom: 0.5rem;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
