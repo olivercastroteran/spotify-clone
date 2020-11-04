@@ -1,0 +1,87 @@
+.login {
+  background-color: #000;
+  height: 100vh;
+  width: 100vw;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__logo {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      margin-left: 1rem;
+      font-size: 5rem;
+
+      small {
+        color: #1ed760;
+        font-size: 2.5rem;
+      }
+    }
+
+    svg {
+      width: 150px;
+      height: auto;
+    }
+  }
+
+  &__form {
+    margin-top: 2rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__field {
+    margin-bottom: 1rem;
+    min-width: 25rem;
+    display: flex;
+    justify-content: space-between;
+
+    label {
+      font-size: 1.5rem;
+    }
+
+    input {
+      background-color: transparent;
+      padding: 6px 12px;
+      font-size: 1.2rem;
+      border-radius: 20px;
+      border: 2px solid #ccc;
+      outline: none;
+      color: #fff;
+
+      &:focus {
+        border-color: #1ed760;
+      }
+    }
+  }
+
+  &__btn {
+    cursor: pointer;
+    outline: none;
+    color: #191414;
+    background-color: #1ed760;
+    border-radius: 30px;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: #1db954;
+      transform: scale(1.02);
+    }
+
+    &:active {
+      transform: scale(1);
+    }
+  }
+}
