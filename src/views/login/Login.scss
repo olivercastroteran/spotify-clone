@@ -84,4 +84,11 @@
       transform: scale(1);
     }
   }
+
+  &__error-msg {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #c0392b;
+    font-size: 1rem;
+  }
 }
