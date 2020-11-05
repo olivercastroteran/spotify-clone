@@ -2,10 +2,12 @@ import { useState } from 'react';
 import './Login.scss';
 import { ReactComponent as SpotifyIcon } from '../../assets/images/spotify.svg';
 import { auth } from '../../config/fbConfig';
-import { useDispatch } from 'react-redux';
-import { loginAction } from '../../store/actions/authActions';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginAction, setLoading } from '../../store/actions/authActions';
+import Spinner from '../../components/UI/spinner/Spinner';
 
 const Login = () => {
+  const loading = useSelector((state) => state.auth.loading);
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
@@ -42,6 +44,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(setLoading(true));
     const isValid = checkError();
 
     isValid &&
@@ -50,6 +53,7 @@ const Login = () => {
         .then((auth) => {
           if (auth) {
             //console.log(auth);
+            dispatch(setLoading(false));
             dispatch(loginAction(isValid));
           }
         })
@@ -93,6 +97,8 @@ const Login = () => {
 
         {isError && <p className="login__error-msg">{message}</p>}
       </form>
+
+      {loading && <Spinner />}
     </div>
   );
 };
