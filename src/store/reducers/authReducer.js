@@ -1,5 +1,5 @@
 const initState = {
-  isLoggedIn: false,
+  isLoggedIn: true,
   loading: false,
 };
 

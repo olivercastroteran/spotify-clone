@@ -5,4 +5,83 @@
   left: 0;
   width: 100%;
   height: 9vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+
+  &__album {
+    display: flex;
+    align-items: center;
+    color: #ccc;
+    margin-left: 0.75rem;
+
+    &--img {
+      margin-right: 1rem;
+    }
+
+    &--title {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    &--artist {
+      font-size: 0.8rem;
+    }
+  }
+
+  &__progress {
+    flex: 1;
+    margin: 0 1.5rem;
+    filter: brightness(0.9);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s;
+
+    &:hover {
+      filter: brightness(1);
+    }
+
+    &--container {
+      cursor: pointer;
+      background-color: #777;
+      height: 7px;
+      border-radius: 10px;
+      flex: 1;
+      margin: 0 0.5rem;
+    }
+
+    &--bar {
+      border-radius: 20px;
+      background-color: #1db954;
+      width: 70%;
+      height: 7px;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .previous {
+      transform: rotate(180deg);
+    }
+
+    & > * {
+      opacity: 0.7;
+      cursor: pointer;
+      margin: 0 0.75rem;
+      transition: all 0.2s;
+
+      &:hover {
+        opacity: 1;
+
+        path {
+          fill: #fff;
+        }
+      }
+    }
+  }
 }
