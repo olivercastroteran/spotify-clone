@@ -19,6 +19,8 @@ const Player = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [playlist] = useState([song1, song2, song3]);
   const [songIndex, setSongIndex] = useState(0);
+  const [isLooping, setIsLooping] = useState(true);
+  const [isRandom, setIsRandom] = useState(false);
 
   const playSong = useCallback(() => {
     setIsPlaying(true);
@@ -28,19 +30,20 @@ const Player = () => {
     if (playPromise !== undefined) {
       playPromise
         .then((_) => {
-          setIsPlaying(true);
           console.log('autoplay');
+          setIsPlaying(true);
         })
         .catch((error) => {
           console.log('playback prevented');
+          setIsPlaying(false);
         });
     }
   }, [playlist, songIndex]);
 
-  const pauseSong = () => {
+  const pauseSong = useCallback(() => {
     setIsPlaying(false);
     playlist[songIndex].pause();
-  };
+  }, [playlist, songIndex]);
 
   const prevSong = () => {
     pauseSong();
@@ -53,7 +56,7 @@ const Player = () => {
     });
   };
 
-  const nextSong = () => {
+  const nextSong = useCallback(() => {
     pauseSong();
 
     setSongIndex((prevSongIndex) => {
@@ -62,11 +65,27 @@ const Player = () => {
       }
       return prevSongIndex + 1;
     });
-  };
+  }, [pauseSong, playlist.length]);
 
   useEffect(() => {
     playSong();
   }, [songIndex, playSong]);
+
+  useEffect(() => {
+    if (isLooping) {
+      playlist[songIndex].addEventListener('ended', nextSong);
+    } else if (!isLooping) {
+      playlist[songIndex].addEventListener('ended', () => {
+        setIsPlaying(false);
+      });
+    }
+    return () => {
+      playlist[songIndex].removeEventListener('ended', nextSong);
+      playlist[songIndex].removeEventListener('ended', () => {
+        setIsPlaying(false);
+      });
+    };
+  }, [playlist, isLooping, songIndex, nextSong]);
 
   useEffect(() => {
     setIsPlaying(false);
@@ -93,15 +112,27 @@ const Player = () => {
       </div>
 
       <div className="player__controls">
-        <RandomIcon />
+        <RandomIcon
+          className={isRandom ? 'random' : ''}
+          onClick={() => setIsRandom(!isRandom)}
+        />
+        {isRandom && <div className="dotr"></div>}
+
         <ArrowIcon className="previous" onClick={prevSong} />
+
         {isPlaying ? (
           <PauseIcon className="play-pause-btn" onClick={pauseSong} />
         ) : (
           <PlayIcon className="play-pause-btn" onClick={playSong} />
         )}
+
         <ArrowIcon onClick={nextSong} />
-        <LoopIcon />
+
+        <LoopIcon
+          className={isLooping ? 'loop' : ''}
+          onClick={() => setIsLooping(!isLooping)}
+        />
+        {isLooping && <div className="dotl"></div>}
       </div>
     </div>
   );
