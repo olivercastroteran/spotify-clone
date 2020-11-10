@@ -72,10 +72,15 @@ const Player = () => {
         return (prevSongIndex = 0);
       } else if (prevSongIndex >= playlist.length - 1 && isRandom) {
         return (prevSongIndex = Math.floor(Math.random() * playlist.length));
+      } else if (isRandom) {
+        return (prevSongIndex = Math.floor(Math.random() * playlist.length));
       }
       return prevSongIndex + 1;
     });
-  }, [pauseSong, playlist.length, isRandom]);
+
+    playlist[songIndex].currentTime = 0;
+    setCurrentTime('0:00');
+  }, [pauseSong, isRandom, playlist, songIndex]);
 
   const formatTime = (time) => {
     let minutes = Math.floor(time / 60);
@@ -162,7 +167,10 @@ const Player = () => {
       <div className="player__controls">
         <RandomIcon
           className={isRandom ? 'random' : ''}
-          onClick={() => setIsRandom(!isRandom)}
+          onClick={() => {
+            !isRandom && nextSong();
+            setIsRandom(!isRandom);
+          }}
         />
         {isRandom && <div className="dotr"></div>}
 

@@ -14,7 +14,9 @@ const Sidebar = () => {
       <Link to="/">
         <h1 className="sidebar__title">
           <SpotifyIcon />
-          <span>Spotify</span>
+          <span>
+            Spotify<small>clone</small>
+          </span>
         </h1>
       </Link>
 
