@@ -8,16 +8,18 @@ import { ReactComponent as RandomIcon } from '../../assets/icons/random.svg';
 import { ReactComponent as LoopIcon } from '../../assets/icons/loop.svg';
 
 import sound1 from '../../assets/music/bienvenido-phil_collins.mp3';
-import sound2 from '../../assets/music/no_me_preocupo-oliver.mp3';
-import sound3 from '../../assets/music/por_siempre_tu_amistad-mijares.mp3';
+import sound2 from '../../assets/music/el_dorado-mijares.mp3';
+import sound3 from '../../assets/music/no_me_preocupo-oliver.mp3';
+import sound4 from '../../assets/music/por_siempre_tu_amistad-mijares.mp3';
 
 const song1 = new Audio(sound1);
 const song2 = new Audio(sound2);
 const song3 = new Audio(sound3);
+const song4 = new Audio(sound4);
 
 const Player = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [playlist] = useState([song1, song2, song3]);
+  const [playlist] = useState([song1, song2, song3, song4]);
   const [songIndex, setSongIndex] = useState(0);
   const [isLooping, setIsLooping] = useState(true);
   const [isRandom, setIsRandom] = useState(false);
@@ -49,8 +51,10 @@ const Player = () => {
     pauseSong();
 
     setSongIndex((prevSongIndex) => {
-      if (prevSongIndex <= 0) {
+      if (prevSongIndex <= 0 && !isRandom) {
         return (prevSongIndex = playlist.length - 1);
+      } else if (prevSongIndex <= 0 && isRandom) {
+        return (prevSongIndex = Math.floor(Math.random() * playlist.length));
       }
       return prevSongIndex - 1;
     });
@@ -60,12 +64,14 @@ const Player = () => {
     pauseSong();
 
     setSongIndex((prevSongIndex) => {
-      if (prevSongIndex >= playlist.length - 1) {
+      if (prevSongIndex >= playlist.length - 1 && !isRandom) {
         return (prevSongIndex = 0);
+      } else if (prevSongIndex >= playlist.length - 1 && isRandom) {
+        return (prevSongIndex = Math.floor(Math.random() * playlist.length));
       }
       return prevSongIndex + 1;
     });
-  }, [pauseSong, playlist.length]);
+  }, [pauseSong, playlist.length, isRandom]);
 
   useEffect(() => {
     playSong();
