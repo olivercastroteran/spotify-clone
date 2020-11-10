@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import './Player.scss';
 import { ReactComponent as AlbumIcon } from '../../assets/images/album.svg';
 import { ReactComponent as PlayIcon } from '../../assets/icons/play.svg';
@@ -23,6 +23,10 @@ const Player = () => {
   const [songIndex, setSongIndex] = useState(0);
   const [isLooping, setIsLooping] = useState(true);
   const [isRandom, setIsRandom] = useState(false);
+  const [currentTime, setCurrentTime] = useState('0:00');
+  const [duration, setDuration] = useState('3:00');
+  const [progressPercent, setProgressPercent] = useState(0);
+  const progressRef = useRef();
 
   const playSong = useCallback(() => {
     setIsPlaying(true);
@@ -73,11 +77,37 @@ const Player = () => {
     });
   }, [pauseSong, playlist.length, isRandom]);
 
+  const formatTime = (time) => {
+    let minutes = Math.floor(time / 60);
+    let seconds = Math.floor(time % 60);
+
+    return `${minutes}:${seconds >= 10 ? seconds : '0' + seconds}`;
+  };
+
+  const updateProgress = useCallback((e) => {
+    const { duration, currentTime } = e.srcElement;
+    const percent = (currentTime / duration) * 100;
+    setCurrentTime(formatTime(currentTime));
+    setDuration(formatTime(duration));
+    setProgressPercent(percent);
+  }, []);
+
+  function setProgress(e) {
+    console.log('click');
+    const width = progressRef.current.offsetWidth;
+    const clickX = e.nativeEvent.offsetX;
+    const duration = playlist[songIndex].duration;
+
+    playlist[songIndex].currentTime = (clickX / width) * duration;
+    setCurrentTime((clickX / width) * duration);
+  }
+
   useEffect(() => {
     playSong();
   }, [songIndex, playSong]);
 
   useEffect(() => {
+    playlist[songIndex].addEventListener('timeupdate', updateProgress);
     if (isLooping) {
       playlist[songIndex].addEventListener('ended', nextSong);
     } else if (!isLooping) {
@@ -86,16 +116,24 @@ const Player = () => {
       });
     }
     return () => {
+      playlist[songIndex].removeEventListener('timeupdate', updateProgress);
       playlist[songIndex].removeEventListener('ended', nextSong);
       playlist[songIndex].removeEventListener('ended', () => {
         setIsPlaying(false);
       });
     };
-  }, [playlist, isLooping, songIndex, nextSong]);
+  }, [playlist, isLooping, songIndex, nextSong, updateProgress]);
 
   useEffect(() => {
     setIsPlaying(false);
   }, []);
+
+  const style = {
+    borderRadius: '20px',
+    backgroundColor: '#1db954',
+    width: `${progressPercent}%`,
+    height: '7px',
+  };
 
   return (
     <div className="player">
@@ -110,11 +148,15 @@ const Player = () => {
       </div>
 
       <div className="player__progress">
-        <p>2:30</p>
-        <div className="player__progress--container">
-          <div className="player__progress--bar"></div>
+        <p>{currentTime}</p>
+        <div
+          ref={progressRef}
+          className="player__progress--container"
+          onClick={setProgress}
+        >
+          <div className="player__progress--bar" style={style}></div>
         </div>
-        <p>3:20</p>
+        <p>{duration}</p>
       </div>
 
       <div className="player__controls">
