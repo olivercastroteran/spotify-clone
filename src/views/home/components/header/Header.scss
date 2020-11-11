@@ -66,6 +66,13 @@
     align-items: center;
     text-decoration: none;
     color: #ccc;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: rgba($color: #fff, $alpha: 0.1);
+    }
 
     svg {
       width: 18px;

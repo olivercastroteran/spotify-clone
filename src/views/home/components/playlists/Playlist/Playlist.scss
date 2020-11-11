@@ -1,0 +1,25 @@
+.playlistItem {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem;
+  background-color: rgba($color: #fff, $alpha: 0.1);
+  border-radius: 15px;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: #3f7a54;
+    color: #fff;
+
+    svg path {
+      fill: #fff;
+    }
+  }
+
+  &-right {
+    p {
+      font-size: 0.8rem;
+    }
+  }
+}
