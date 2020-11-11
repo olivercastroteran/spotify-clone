@@ -1,9 +1,12 @@
 import './Home.scss';
+import { Banner, Header, Playlists } from './components';
 
 const Home = () => {
   return (
     <div className="home">
-      <h1>Home</h1>
+      <Header />
+      <Banner />
+      <Playlists />
     </div>
   );
 };
