@@ -1,17 +1,21 @@
 import { useEffect, useState } from 'react';
 import './Playlists.scss';
+import { useDispatch, useSelector } from 'react-redux';
 import PlaylistItem from './Playlist/Playlist';
 import Spinner from '../../../../components/UI/spinner/Spinner';
 import useFirestore from '../../../../hooks/useFirestore';
+import { setPlaylists } from '../../../../store/actions/musicActions';
 
 const Playlists = () => {
-  const { playlists } = useFirestore('playlists');
-  console.log(playlists);
+  const { docs } = useFirestore('playlists');
+  const playlists = useSelector((state) => state.music.playlists);
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setIsLoading((prevIsLoading) => !prevIsLoading);
-  }, [playlists]);
+    dispatch(setPlaylists(docs));
+  }, [docs, dispatch]);
 
   return (
     <div className="playlists">
