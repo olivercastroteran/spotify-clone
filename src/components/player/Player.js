@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import './Player.scss';
+import { useSelector } from 'react-redux';
 import { ReactComponent as AlbumIcon } from '../../assets/images/album.svg';
 import { ReactComponent as PlayIcon } from '../../assets/icons/play.svg';
 import { ReactComponent as PauseIcon } from '../../assets/icons/pause.svg';
@@ -7,19 +8,10 @@ import { ReactComponent as ArrowIcon } from '../../assets/icons/arrowIcon.svg';
 import { ReactComponent as RandomIcon } from '../../assets/icons/random.svg';
 import { ReactComponent as LoopIcon } from '../../assets/icons/loop.svg';
 
-import sound1 from '../../assets/music/bienvenido-phil_collins.mp3';
-import sound2 from '../../assets/music/el_dorado-mijares.mp3';
-import sound3 from '../../assets/music/no_me_preocupo-oliver.mp3';
-import sound4 from '../../assets/music/por_siempre_tu_amistad-mijares.mp3';
-
-const song1 = new Audio(sound1);
-const song2 = new Audio(sound2);
-const song3 = new Audio(sound3);
-const song4 = new Audio(sound4);
-
 const Player = () => {
+  const nostalgiaPlaylist = useSelector((state) => state.music.playlists[0]);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [playlist] = useState([song1, song2, song3, song4]);
+  const [playlist, setPlaylist] = useState([]);
   const [songIndex, setSongIndex] = useState(0);
   const [isLooping, setIsLooping] = useState(true);
   const [isRandom, setIsRandom] = useState(false);
@@ -28,21 +20,33 @@ const Player = () => {
   const [progressPercent, setProgressPercent] = useState(0);
   const progressRef = useRef();
 
+  const getPlaylist = useCallback(async () => {
+    const newPLaylist = await nostalgiaPlaylist?.songs.map(
+      (song) => new Audio(song.src)
+    );
+    setPlaylist(newPLaylist);
+  }, [nostalgiaPlaylist]);
+
+  useEffect(() => {
+    getPlaylist();
+  }, [nostalgiaPlaylist, getPlaylist]);
+
   const playSong = useCallback(() => {
     setIsPlaying(true);
 
-    let playPromise = playlist[songIndex].play();
+    let playPromise = playlist ? playlist[songIndex]?.play() : null;
 
     if (playPromise !== undefined) {
-      playPromise
-        .then((_) => {
-          console.log('autoplay');
-          setIsPlaying(true);
-        })
-        .catch((error) => {
-          console.log('playback prevented');
-          setIsPlaying(false);
-        });
+      playlist &&
+        playPromise
+          .then((_) => {
+            console.log('autoplay');
+            setIsPlaying(true);
+          })
+          .catch((error) => {
+            console.log('playback prevented');
+            setIsPlaying(false);
+          });
     }
   }, [playlist, songIndex]);
 
@@ -112,20 +116,24 @@ const Player = () => {
   }, [songIndex, playSong]);
 
   useEffect(() => {
-    playlist[songIndex].addEventListener('timeupdate', updateProgress);
+    playlist &&
+      playlist[songIndex]?.addEventListener('timeupdate', updateProgress);
     if (isLooping) {
-      playlist[songIndex].addEventListener('ended', nextSong);
+      playlist && playlist[songIndex]?.addEventListener('ended', nextSong);
     } else if (!isLooping) {
-      playlist[songIndex].addEventListener('ended', () => {
-        setIsPlaying(false);
-      });
+      playlist &&
+        playlist[songIndex]?.addEventListener('ended', () => {
+          setIsPlaying(false);
+        });
     }
     return () => {
-      playlist[songIndex].removeEventListener('timeupdate', updateProgress);
-      playlist[songIndex].removeEventListener('ended', nextSong);
-      playlist[songIndex].removeEventListener('ended', () => {
-        setIsPlaying(false);
-      });
+      playlist &&
+        playlist[songIndex]?.removeEventListener('timeupdate', updateProgress);
+      playlist && playlist[songIndex]?.removeEventListener('ended', nextSong);
+      playlist &&
+        playlist[songIndex]?.removeEventListener('ended', () => {
+          setIsPlaying(false);
+        });
     };
   }, [playlist, isLooping, songIndex, nextSong, updateProgress]);
 
