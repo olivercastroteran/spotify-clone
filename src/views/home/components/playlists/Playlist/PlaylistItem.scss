@@ -1,5 +1,7 @@
 .playlistItem {
   cursor: pointer;
+  text-decoration: none;
+  color: #ccc;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -10,11 +12,16 @@
 
   &:hover {
     background-color: #3f7a54;
+    transform: scale(1.02);
     color: #fff;
 
     svg path {
       fill: #fff;
     }
+  }
+
+  &:active {
+    transform: scale(1);
   }
 
   &-right {

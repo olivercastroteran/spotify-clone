@@ -12,6 +12,7 @@
 
   &__album {
     display: flex;
+    min-width: 12rem;
     align-items: center;
     color: #ccc;
     margin-left: 0.75rem;
@@ -21,7 +22,7 @@
     }
 
     &--title {
-      font-size: 1.2rem;
+      font-size: 1rem;
       margin-bottom: 5px;
     }
 
@@ -55,6 +56,8 @@
 
   &__controls {
     display: flex;
+    min-width: 15rem;
+    margin: 0 1rem;
     align-items: center;
     justify-content: space-between;
     position: relative;

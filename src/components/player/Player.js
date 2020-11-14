@@ -1,15 +1,15 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import './Player.scss';
-import { useSelector } from 'react-redux';
 import { ReactComponent as AlbumIcon } from '../../assets/images/album.svg';
-import { ReactComponent as PlayIcon } from '../../assets/icons/play.svg';
-import { ReactComponent as PauseIcon } from '../../assets/icons/pause.svg';
-import { ReactComponent as ArrowIcon } from '../../assets/icons/arrowIcon.svg';
-import { ReactComponent as RandomIcon } from '../../assets/icons/random.svg';
-import { ReactComponent as LoopIcon } from '../../assets/icons/loop.svg';
+import {
+  PlayIcon,
+  PauseIcon,
+  ArrowIcon,
+  RandomIcon,
+  LoopIcon,
+} from '../../assets/icons';
 
-const Player = () => {
-  const nostalgiaPlaylist = useSelector((state) => state.music.playlists[0]);
+const Player = ({ currentPlaylist }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [playlist, setPlaylist] = useState([]);
   const [songIndex, setSongIndex] = useState(0);
@@ -20,16 +20,20 @@ const Player = () => {
   const [progressPercent, setProgressPercent] = useState(0);
   const progressRef = useRef();
 
-  const getPlaylist = useCallback(async () => {
-    const newPLaylist = await nostalgiaPlaylist?.songs.map(
+  useEffect(() => {
+    const newPLaylist = currentPlaylist?.songs.map(
       (song) => new Audio(song.src)
     );
     setPlaylist(newPLaylist);
-  }, [nostalgiaPlaylist]);
 
-  useEffect(() => {
-    getPlaylist();
-  }, [nostalgiaPlaylist, getPlaylist]);
+    let currentAudio =
+      playlist && playlist?.find((audio) => false === audio.paused);
+
+    if (currentAudio) {
+      currentAudio.pause();
+    }
+    // eslint-disable-next-line
+  }, [currentPlaylist]);
 
   const playSong = useCallback(() => {
     setIsPlaying(true);
@@ -52,7 +56,7 @@ const Player = () => {
 
   const pauseSong = useCallback(() => {
     setIsPlaying(false);
-    playlist[songIndex].pause();
+    playlist && playlist[songIndex]?.pause();
   }, [playlist, songIndex]);
 
   const prevSong = () => {
@@ -124,6 +128,8 @@ const Player = () => {
       playlist &&
         playlist[songIndex]?.addEventListener('ended', () => {
           setIsPlaying(false);
+          playlist[songIndex].currentTime = 0;
+          setCurrentTime('0:00');
         });
     }
     return () => {
@@ -133,9 +139,11 @@ const Player = () => {
       playlist &&
         playlist[songIndex]?.removeEventListener('ended', () => {
           setIsPlaying(false);
+          playlist[songIndex].currentTime = 0;
+          setCurrentTime('0:00');
         });
     };
-  }, [playlist, isLooping, songIndex, nextSong, updateProgress]);
+  }, [playlist, isLooping, songIndex, nextSong, updateProgress, pauseSong]);
 
   useEffect(() => {
     setIsPlaying(false);
@@ -155,8 +163,14 @@ const Player = () => {
           <AlbumIcon />
         </div>
         <div className="player__album--data">
-          <p className="player__album--title">Title</p>
-          <p className="player__album--artist">Artist {songIndex}</p>
+          <p className="player__album--title">
+            {currentPlaylist ? currentPlaylist.songs[songIndex].title : 'Title'}
+          </p>
+          <p className="player__album--artist">
+            {currentPlaylist
+              ? currentPlaylist.songs[songIndex].artist
+              : 'Artist'}
+          </p>
         </div>
       </div>
 
