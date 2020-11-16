@@ -143,7 +143,7 @@ const Player = ({ currentPlaylist }) => {
           setCurrentTime('0:00');
         });
     };
-  }, [playlist, isLooping, songIndex, nextSong, updateProgress, pauseSong]);
+  }, [playlist, isLooping, songIndex, nextSong, updateProgress]);
 
   useEffect(() => {
     setIsPlaying(false);
