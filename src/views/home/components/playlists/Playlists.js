@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import './Playlists.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import PlaylistItem from './Playlist/Playlist';
+import PlaylistItem from './Playlist/PlaylistItem';
 import Spinner from '../../../../components/UI/spinner/Spinner';
 import useFirestore from '../../../../hooks/useFirestore';
-import { setPlaylists } from '../../../../store/actions/musicActions';
+import {
+  setCurrentPlaylist,
+  setPlaylists,
+} from '../../../../store/actions/musicActions';
 
 const Playlists = () => {
   const { docs } = useFirestore('playlists');
@@ -17,12 +20,23 @@ const Playlists = () => {
     dispatch(setPlaylists(docs));
   }, [docs, dispatch]);
 
+  const changePlaylist = (index) => {
+    dispatch(setCurrentPlaylist(index));
+  };
+
   return (
     <div className="playlists">
       <div className="playlists__container">
         {!isLoading && <Spinner />}
-        {playlists?.map((playlist) => {
-          return <PlaylistItem key={playlist.id} {...playlist} />;
+        {playlists?.map((playlist, index) => {
+          return (
+            <PlaylistItem
+              key={playlist.id}
+              {...playlist}
+              changePlaylist={changePlaylist}
+              index={index}
+            />
+          );
         })}
       </div>
     </div>
