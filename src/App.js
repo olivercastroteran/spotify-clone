@@ -7,7 +7,12 @@ import { useSelector } from 'react-redux';
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const currentPlaylist = useSelector((state) => state.music.playlists[0]);
+  const playlistIndex = useSelector(
+    (state) => state.music.current.playlistIndex
+  );
+  const currentPlaylist = useSelector(
+    (state) => state.music.playlists[playlistIndex]
+  );
 
   if (!isLoggedIn) {
     return <Login />;

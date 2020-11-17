@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import './Player.scss';
+import { useSelector, useDispatch } from 'react-redux';
 import { ReactComponent as AlbumIcon } from '../../assets/images/album.svg';
 import {
   PlayIcon,
@@ -10,11 +11,13 @@ import {
 } from '../../assets/icons';
 
 const Player = ({ currentPlaylist }) => {
+  const songIndex = useSelector((state) => state.music.current.songIndex);
+  const isRandom = useSelector((state) => state.music.controls.isRandom);
+  const isLooping = useSelector((state) => state.music.controls.isLooping);
+  const dispatch = useDispatch();
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [playlist, setPlaylist] = useState([]);
-  const [songIndex, setSongIndex] = useState(0);
-  const [isLooping, setIsLooping] = useState(true);
-  const [isRandom, setIsRandom] = useState(false);
   const [currentTime, setCurrentTime] = useState('0:00');
   const [duration, setDuration] = useState('3:00');
   const [progressPercent, setProgressPercent] = useState(0);
@@ -37,6 +40,13 @@ const Player = ({ currentPlaylist }) => {
 
   const playSong = useCallback(() => {
     setIsPlaying(true);
+
+    let currentAudio =
+      playlist && playlist?.find((audio) => false === audio.paused);
+
+    if (currentAudio) {
+      currentAudio.pause();
+    }
 
     let playPromise = playlist ? playlist[songIndex]?.play() : null;
 
@@ -61,34 +71,16 @@ const Player = ({ currentPlaylist }) => {
 
   const prevSong = () => {
     pauseSong();
-
-    setSongIndex((prevSongIndex) => {
-      if (prevSongIndex <= 0 && !isRandom) {
-        return (prevSongIndex = playlist.length - 1);
-      } else if (prevSongIndex <= 0 && isRandom) {
-        return (prevSongIndex = Math.floor(Math.random() * playlist.length));
-      }
-      return prevSongIndex - 1;
-    });
+    dispatch({ type: 'PLAY_PREV_SONG' });
   };
 
   const nextSong = useCallback(() => {
     pauseSong();
-
-    setSongIndex((prevSongIndex) => {
-      if (prevSongIndex >= playlist.length - 1 && !isRandom) {
-        return (prevSongIndex = 0);
-      } else if (prevSongIndex >= playlist.length - 1 && isRandom) {
-        return (prevSongIndex = Math.floor(Math.random() * playlist.length));
-      } else if (isRandom) {
-        return (prevSongIndex = Math.floor(Math.random() * playlist.length));
-      }
-      return prevSongIndex + 1;
-    });
+    dispatch({ type: 'PLAY_NEXT_SONG' });
 
     playlist[songIndex].currentTime = 0;
     setCurrentTime('0:00');
-  }, [pauseSong, isRandom, playlist, songIndex]);
+  }, [pauseSong, playlist, songIndex, dispatch]);
 
   const formatTime = (time) => {
     let minutes = Math.floor(time / 60);
@@ -191,7 +183,7 @@ const Player = ({ currentPlaylist }) => {
           className={isRandom ? 'random' : ''}
           onClick={() => {
             !isRandom && nextSong();
-            setIsRandom(!isRandom);
+            dispatch({ type: 'TOGGLE_RANDOM' });
           }}
         />
         {isRandom && <div className="dotr"></div>}
@@ -208,7 +200,7 @@ const Player = ({ currentPlaylist }) => {
 
         <LoopIcon
           className={isLooping ? 'loop' : ''}
-          onClick={() => setIsLooping(!isLooping)}
+          onClick={() => dispatch({ type: 'TOGGLE_LOOP' })}
         />
         {isLooping && <div className="dotl"></div>}
       </div>
