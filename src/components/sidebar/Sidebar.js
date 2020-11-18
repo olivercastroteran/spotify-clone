@@ -5,10 +5,12 @@ import { ReactComponent as HomeIcon } from '../../assets/icons/home.svg';
 import { ReactComponent as FavoriteIcon } from '../../assets/icons/favorite.svg';
 import { ReactComponent as UserIcon } from '../../assets/icons/user.svg';
 import { Link, NavLink } from 'react-router-dom';
-import { playlistsData } from '../music/playlistsData';
 import Playlist from '../music/playlist/Playlist';
+import { useSelector } from 'react-redux';
 
 const Sidebar = () => {
+  const playlists = useSelector((state) => state.music.playlists);
+
   return (
     <div className="sidebar">
       <Link to="/">
@@ -39,7 +41,7 @@ const Sidebar = () => {
 
       <div className="sidebar__playlists">
         <h4>PLAYLISTS</h4>
-        {playlistsData.map((playlist) => (
+        {playlists.map((playlist) => (
           <Playlist key={playlist.id} title={playlist.title} />
         ))}
       </div>

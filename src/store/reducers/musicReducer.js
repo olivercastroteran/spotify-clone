@@ -8,6 +8,7 @@ const initState = {
     isRandom: false,
     isLooping: true,
   },
+  favorites: [],
 };
 
 export const musicReducer = (state = initState, action) => {
@@ -122,6 +123,17 @@ export const musicReducer = (state = initState, action) => {
           },
         };
       }
+    case 'ADD_TO_FAVORITES':
+      const newFavorites = [...state.favorites, action.payload];
+      return {
+        ...state,
+        favorites: newFavorites,
+      };
+    case 'REMOVE_FROM_FAVORITES':
+      return {
+        ...state,
+        favorites: state.favorites.filter((song) => song.id !== action.payload),
+      };
     default:
       return state;
   }

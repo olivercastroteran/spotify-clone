@@ -38,14 +38,18 @@ const Playlist = () => {
         </div>
         <div className="playlist-container__songs">
           {currentPlaylist &&
-            currentPlaylist.songs.map((song, index) => (
-              <Song
-                key={Math.random()}
-                {...song}
-                index={index}
-                songIndex={songIndex}
-              />
-            ))}
+            currentPlaylist.songs.map((song, index) => {
+              const id = Math.floor(Math.random() * 10000000);
+              return (
+                <Song
+                  key={id}
+                  {...song}
+                  index={index}
+                  songIndex={songIndex}
+                  id={id}
+                />
+              );
+            })}
         </div>
       </div>
     </div>
