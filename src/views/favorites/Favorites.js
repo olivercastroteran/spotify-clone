@@ -1,14 +1,13 @@
+import { useEffect, useState } from 'react';
 import './Favorites.scss';
 import Header from '../home/components/header/Header';
 import { useSelector } from 'react-redux';
 import { getDuration } from '../playlist/components/PlaylistInfo/getDuration';
 import FavSong from './favSong/FavSong';
-import { useEffect, useState } from 'react';
 
 const Favorites = () => {
   const playlists = useSelector((state) => state.music.playlists);
   const [favorites, setFavorites] = useState([]);
-  // const favorites = useSelector((state) => state.music.favorites);
 
   useEffect(() => {
     let newFavorites = [];

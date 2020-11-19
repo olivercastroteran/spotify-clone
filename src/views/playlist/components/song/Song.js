@@ -1,4 +1,3 @@
-//import { useEffect } from 'react';
 import './Song.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as LikeIcon } from '../../../../assets/icons/like.svg';
@@ -10,9 +9,7 @@ import {
 } from '../../../../store/actions/musicActions';
 
 const Song = ({ title, artist, songIndex, index, src, duration, id }) => {
-  //const [isFavorite, setIsFavorite] = useState(false);
   const dispatch = useDispatch();
-  //const favorites = useSelector((state) => state.music.favorites);
   const playlists = useSelector((state) => state.music.playlists);
   const playlistIndex = useSelector(
     (state) => state.music.current.playlistIndex
@@ -25,7 +22,7 @@ const Song = ({ title, artist, songIndex, index, src, duration, id }) => {
     dispatch(setCurrentSong(index));
   };
 
-  const handleAddToFavorites = () => {
+  const handleFavorites = () => {
     const songData = {
       id,
       title,
@@ -76,22 +73,13 @@ const Song = ({ title, artist, songIndex, index, src, duration, id }) => {
           console.error('Error writing document: ', error);
         });
       dispatch(removeFromFavorites(songData));
-      //setIsFavorite(false);
     }
   };
-
-  // useEffect(() => {
-  //   favorites.forEach((favorite) => {
-  //     if (favorite.id === id) {
-  //       //setIsFavorite(true);
-  //     }
-  //   });
-  // }, [favorites, id]);
 
   return (
     <div className={index === songIndex ? 'song selected' : 'song'}>
       <LikeIcon
-        onClick={handleAddToFavorites}
+        onClick={handleFavorites}
         className={song.isFavorite ? 'song__favorite' : ''}
       />
       <p className="song__title" onClick={selectSong}>

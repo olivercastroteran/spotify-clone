@@ -33,9 +33,9 @@ export const addToFavorites = (song) => {
   };
 };
 
-export const removeFromFavorites = (id) => {
+export const removeFromFavorites = (song) => {
   return {
     type: 'REMOVE_FROM_FAVORITES',
-    payload: id,
+    payload: song,
   };
 };
