@@ -3,9 +3,24 @@ import Header from '../home/components/header/Header';
 import { useSelector } from 'react-redux';
 import { getDuration } from '../playlist/components/PlaylistInfo/getDuration';
 import FavSong from './favSong/FavSong';
+import { useEffect, useState } from 'react';
 
 const Favorites = () => {
-  const favorites = useSelector((state) => state.music.favorites);
+  const playlists = useSelector((state) => state.music.playlists);
+  const [favorites, setFavorites] = useState([]);
+  // const favorites = useSelector((state) => state.music.favorites);
+
+  useEffect(() => {
+    let newFavorites = [];
+    playlists.forEach((playlist) =>
+      playlist.songs.forEach((song) => {
+        if (song.isFavorite === true) {
+          newFavorites.push(song);
+        }
+      })
+    );
+    setFavorites(newFavorites);
+  }, [playlists]);
 
   return (
     <div className="favorites">

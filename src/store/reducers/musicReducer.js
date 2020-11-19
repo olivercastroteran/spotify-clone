@@ -8,13 +8,14 @@ const initState = {
     isRandom: false,
     isLooping: true,
   },
-  favorites: [],
 };
 
 export const musicReducer = (state = initState, action) => {
   const { playlists } = state;
   const { playlistIndex, songIndex } = state.current;
   const { isRandom } = state.controls;
+  let songToUpdateIndex;
+  let playlistsUpdated;
 
   switch (action.type) {
     case 'SET_PLAYLISTS':
@@ -124,15 +125,33 @@ export const musicReducer = (state = initState, action) => {
         };
       }
     case 'ADD_TO_FAVORITES':
-      const newFavorites = [...state.favorites, action.payload];
+      songToUpdateIndex = playlists[playlistIndex].songs.findIndex(
+        (song) => song.id === action.payload.id
+      );
+      playlistsUpdated = [...state.playlists];
+
+      playlistsUpdated[playlistIndex].songs[songToUpdateIndex] = {
+        ...action.payload,
+        isFavorite: true,
+      };
+
       return {
         ...state,
-        favorites: newFavorites,
+        playlists: playlistsUpdated,
       };
     case 'REMOVE_FROM_FAVORITES':
+      songToUpdateIndex = playlists[playlistIndex].songs.findIndex(
+        (song) => song.id === action.payload.id
+      );
+      playlistsUpdated = [...state.playlists];
+
+      playlistsUpdated[playlistIndex].songs[songToUpdateIndex] = {
+        ...action.payload,
+        isFavorite: false,
+      };
       return {
         ...state,
-        favorites: state.favorites.filter((song) => song.id !== action.payload),
+        playlists: playlistsUpdated,
       };
     default:
       return state;
