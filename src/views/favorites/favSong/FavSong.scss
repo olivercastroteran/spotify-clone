@@ -1,4 +1,4 @@
-.song {
+.fav-song {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -16,35 +16,9 @@
     background-color: rgba($color: #fff, $alpha: 0.1);
   }
 
-  svg {
-    margin: 1rem;
-    transition: all 0.2s;
-
-    path {
-      fill: #555;
-    }
-
-    &:hover {
-      transform: scale(1.15);
-      path {
-        fill: #777;
-      }
-    }
-
-    &:active {
-      transform: scale(1);
-    }
-  }
-
   &__title,
   &__artist {
     width: 50%;
     padding: 1rem 0 1rem 3rem;
-  }
-
-  &__favorite {
-    path {
-      fill: #1db954 !important;
-    }
   }
 }
