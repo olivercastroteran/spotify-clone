@@ -1,15 +1,24 @@
+import { useEffect, useState } from 'react';
 import './Sidebar.scss';
-import { ReactComponent as SpotifyIcon } from '../../assets/images/spotify.svg';
-import { ReactComponent as ProIcon } from '../../assets/images/disc.svg';
-import { ReactComponent as HomeIcon } from '../../assets/icons/home.svg';
-import { ReactComponent as FavoriteIcon } from '../../assets/icons/favorite.svg';
-import { ReactComponent as UserIcon } from '../../assets/icons/user.svg';
+import { HomeIcon, FavoriteIcon, UserIcon } from '../../assets/icons';
+import { SpotifyIcon, ProIcon } from '../../assets/images';
 import { Link, NavLink } from 'react-router-dom';
 import Playlist from '../music/playlist/Playlist';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import Spinner from '../UI/spinner/Spinner';
+import useFirestore from '../../hooks/useFirestore';
+import { setPlaylists } from '../../store/actions/musicActions';
 
 const Sidebar = () => {
+  const { docs } = useFirestore('playlists');
   const playlists = useSelector((state) => state.music.playlists);
+  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setIsLoading((prevIsLoading) => !prevIsLoading);
+    dispatch(setPlaylists(docs));
+  }, [docs, dispatch]);
 
   return (
     <div className="sidebar">
@@ -41,7 +50,8 @@ const Sidebar = () => {
 
       <div className="sidebar__playlists">
         <h4>PLAYLISTS</h4>
-        {playlists.map((playlist) => (
+        {!isLoading && <Spinner />}
+        {playlists?.map((playlist) => (
           <Playlist key={playlist.id} title={playlist.title} />
         ))}
       </div>
