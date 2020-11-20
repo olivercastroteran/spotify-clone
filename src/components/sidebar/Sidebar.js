@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Spinner from '../UI/spinner/Spinner';
 import useFirestore from '../../hooks/useFirestore';
 import { setPlaylists } from '../../store/actions/musicActions';
+import { openInfo } from '../../store/actions/infoActions';
 
 const Sidebar = () => {
   const { docs } = useFirestore('playlists');
@@ -58,9 +59,12 @@ const Sidebar = () => {
 
       <div className="sidebar__pro">
         <ProIcon />
-        <Link to="/pro" className="sidebar__pro--btn">
-          PRO
-        </Link>
+        <button
+          className="sidebar__pro--btn"
+          onClick={() => dispatch(openInfo())}
+        >
+          APP INFO
+        </button>
       </div>
     </div>
   );
