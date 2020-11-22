@@ -7,6 +7,10 @@
   background-color: rgba($color: #fff, $alpha: 0.1);
   position: relative;
 
+  @media screen and (max-width: 1200px) {
+    margin-bottom: 2rem;
+  }
+
   &__title {
     color: #fff;
     margin-bottom: 1rem;

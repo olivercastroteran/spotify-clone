@@ -4,6 +4,10 @@
   align-items: center;
   justify-content: space-between;
 
+  @media screen and (max-width: 1200px) {
+    margin-bottom: 3rem;
+  }
+
   &__go-back {
     cursor: pointer;
     width: 40px;

@@ -36,7 +36,7 @@
 .modal {
   color: #fff;
   width: 40%;
-  height: 28%;
+  height: 30%;
   max-height: 300px;
   background-color: #333;
   z-index: 100;
@@ -44,12 +44,23 @@
   display: flex;
   flex-direction: column;
 
+  @media screen and (max-width: 1200px) {
+    width: 50%;
+    height: 40%;
+  }
+
   &__title {
+    letter-spacing: 2px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 1rem 2rem;
     border-bottom: 1px solid #555;
+
+    @media screen and (max-width: 1200px) {
+      font-size: 0.9rem;
+      padding: 0.7rem 1.5rem;
+    }
   }
 
   &__close {
