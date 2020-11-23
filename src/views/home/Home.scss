@@ -6,6 +6,11 @@
   padding: 1rem 2rem;
   overflow-y: scroll;
 
+  @media screen and (max-width: 900px) {
+    height: 85vh;
+    padding: 1rem;
+  }
+
   &::-webkit-scrollbar {
     width: 0.5em;
   }

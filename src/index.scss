@@ -2,6 +2,10 @@
 
 html {
   box-sizing: border-box;
+
+  @media screen and (max-width: 900px) {
+    font-size: 15px;
+  }
 }
 
 *,

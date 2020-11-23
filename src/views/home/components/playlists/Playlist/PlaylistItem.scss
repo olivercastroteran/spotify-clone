@@ -24,6 +24,15 @@
     transform: scale(1);
   }
 
+  &-left {
+    svg {
+      @media screen and (max-width: 768px) {
+        width: 70px;
+        height: auto;
+      }
+    }
+  }
+
   &-right {
     p {
       font-size: 0.8rem;

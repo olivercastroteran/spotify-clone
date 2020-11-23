@@ -9,6 +9,11 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+  z-index: 100;
+
+  @media screen and (max-width: 900px) {
+    height: 15vh;
+  }
 
   &__album {
     display: flex;
@@ -17,8 +22,22 @@
     color: #ccc;
     margin-left: 0.75rem;
 
+    @media screen and (max-width: 768px) {
+      margin: 0;
+      min-width: 9rem;
+    }
+
     &--img {
       margin-right: 1rem;
+
+      @media screen and (max-width: 768px) {
+        width: 40px;
+
+        svg {
+          width: 100%;
+          height: auto;
+        }
+      }
     }
 
     &--title {
@@ -39,6 +58,10 @@
     align-items: center;
     justify-content: space-between;
     transition: all 0.2s;
+
+    @media screen and (max-width: 768px) {
+      margin: 0 0.75rem;
+    }
 
     &:hover {
       filter: brightness(1);
@@ -62,11 +85,22 @@
     justify-content: space-between;
     position: relative;
 
+    @media screen and (max-width: 768px) {
+      margin: 0;
+      min-width: 10rem;
+    }
+
     & > * {
       opacity: 0.9;
       cursor: pointer;
       margin: 0 0.75rem;
       transition: all 0.2s;
+
+      @media screen and (max-width: 768px) {
+        margin: 0 0.5rem;
+        width: 16px;
+        height: auto;
+      }
 
       &:hover {
         opacity: 1;
@@ -101,10 +135,18 @@
 
     .dotl {
       right: 0.5rem;
+
+      @media screen and (max-width: 768px) {
+        right: 0.4rem;
+      }
     }
 
     .dotr {
       left: 0.4rem;
+
+      @media screen and (max-width: 768px) {
+        left: 0.3rem;
+      }
     }
 
     .previous {
@@ -116,6 +158,20 @@
 
       &:active {
         transform: rotate(180deg) scale(1);
+      }
+    }
+
+    .play-pause-btn {
+      @media screen and (max-width: 768px) {
+        width: 33px;
+        height: auto;
+      }
+    }
+
+    .loop-icon {
+      @media screen and (max-width: 768px) {
+        width: 19px;
+        height: auto;
       }
     }
   }

@@ -8,6 +8,12 @@
   display: flex;
   flex-direction: column;
 
+  @media screen and (max-width: 900px) {
+    height: 85vh;
+    width: 19%;
+    padding: 1rem 0.5rem;
+  }
+
   a {
     text-decoration: none;
   }
@@ -45,6 +51,12 @@
     border-bottom: 1px solid #666;
     list-style: none;
 
+    @media screen and (max-width: 900px) {
+      margin: 0;
+      padding: 0.3rem 0;
+      margin-top: 0.3rem;
+    }
+
     &--item {
       text-decoration: none;
       display: flex;
@@ -60,12 +72,24 @@
         margin: 0.3rem 0;
       }
 
+      @media screen and (max-width: 768px) {
+        margin: 3px 0;
+      }
+
       span {
         margin-left: 1rem;
+
+        @media screen and (max-width: 768px) {
+          font-size: 0.93rem;
+        }
       }
 
       svg {
         transition: all 0.3s;
+
+        @media screen and (max-width: 768px) {
+          width: 20px;
+        }
       }
 
       svg path {
@@ -95,6 +119,11 @@
     flex: 1;
     margin: 1rem;
     overflow-y: scroll;
+    overflow-x: hidden;
+
+    @media screen and (max-width: 768px) {
+      margin: 0.75rem;
+    }
 
     &::-webkit-scrollbar {
       width: 0.5em;
@@ -133,6 +162,10 @@
     align-items: center;
     justify-content: space-between;
 
+    @media screen and (max-width: 900px) {
+      padding: 0.7rem;
+    }
+
     svg {
       margin-top: -3rem;
 
@@ -144,6 +177,12 @@
       @media screen and (max-width: 1024px) {
         width: 70px;
         height: 70px;
+      }
+
+      @media screen and (max-width: 900px) {
+        margin-top: -2rem;
+        width: 60px;
+        height: 60px;
       }
     }
 

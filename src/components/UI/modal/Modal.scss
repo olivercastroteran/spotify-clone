@@ -49,6 +49,11 @@
     height: 40%;
   }
 
+  @media screen and (max-width: 768px) {
+    width: 60%;
+    height: 60%;
+  }
+
   &__title {
     letter-spacing: 2px;
     display: flex;

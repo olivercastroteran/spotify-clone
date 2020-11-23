@@ -6,6 +6,10 @@
   border-radius: 20px;
   background-color: #1db95498;
 
+  @media screen and (max-width: 900px) {
+    width: 93%;
+  }
+
   h1 {
     margin-bottom: 1rem;
     letter-spacing: 2px;

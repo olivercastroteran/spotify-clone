@@ -6,6 +6,11 @@
   padding: 1rem 2rem;
   overflow-y: scroll;
 
+  @media screen and (max-width: 900px) {
+    height: 85vh;
+    padding: 1rem;
+  }
+
   &::-webkit-scrollbar {
     width: 0.5em;
   }
@@ -31,6 +36,10 @@
     border-radius: 20px;
     background-color: #1db95498;
 
+    @media screen and (max-width: 900px) {
+      width: 90%;
+    }
+
     h2 {
       margin-bottom: 1rem;
       letter-spacing: 2px;
@@ -40,6 +49,10 @@
   &__table {
     width: 80%;
     margin: 0 auto;
+
+    @media screen and (max-width: 900px) {
+      width: 87%;
+    }
 
     &--title {
       display: flex;
