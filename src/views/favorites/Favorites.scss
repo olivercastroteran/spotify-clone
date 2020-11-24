@@ -6,6 +6,11 @@
   padding: 1rem 2rem;
   overflow-y: scroll;
 
+  @media screen and (max-width: 900px) {
+    height: 85vh;
+    padding: 1rem;
+  }
+
   &::-webkit-scrollbar {
     width: 0.5em;
   }
@@ -31,6 +36,14 @@
     border-radius: 20px;
     background-color: #1db95498;
 
+    @media screen and (max-width: 900px) {
+      width: 90%;
+    }
+
+    @media screen and (max-width: 740px) and (orientation: landscape) {
+      margin: 0 auto 2rem auto;
+    }
+
     h2 {
       margin-bottom: 1rem;
       letter-spacing: 2px;
@@ -41,6 +54,10 @@
     width: 80%;
     margin: 0 auto;
 
+    @media screen and (max-width: 900px) {
+      width: 87%;
+    }
+
     &--title {
       display: flex;
       align-items: center;
@@ -48,6 +65,10 @@
       font-size: 1.3rem;
       padding-bottom: 1.25rem;
       border-bottom: 1px solid #555;
+
+      @media screen and (max-width: 480px) {
+        font-size: 1rem;
+      }
     }
   }
 }

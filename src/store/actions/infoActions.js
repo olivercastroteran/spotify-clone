@@ -9,3 +9,9 @@ export const closeInfo = () => {
     type: 'CLOSE_INFO',
   };
 };
+
+export const toggleSidebar = () => {
+  return {
+    type: 'TOGGLE_SIDEBAR',
+  };
+};

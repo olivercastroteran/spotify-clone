@@ -4,6 +4,18 @@
   align-items: center;
   justify-content: space-between;
 
+  @media screen and (max-width: 1200px) {
+    margin-bottom: 3rem;
+  }
+
+  @media screen and (max-width: 740px) and (orientation: landscape) {
+    margin-bottom: 2rem;
+  }
+
+  @media screen and (max-width: 480px) {
+    margin-bottom: 1rem;
+  }
+
   &__go-back {
     cursor: pointer;
     width: 40px;
@@ -32,14 +44,26 @@
     flex: 1;
     margin: 0 3rem;
 
+    @media screen and (max-width: 768px) {
+      margin: 0 1rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      display: none;
+    }
+
     input {
-      min-width: 200px;
+      max-width: 250px;
       padding: 0.5rem 1rem;
       outline: none;
       border: none;
       border-top-left-radius: 30px;
       border-bottom-left-radius: 30px;
       font-size: 1rem;
+
+      @media screen and (max-width: 768px) {
+        max-width: 170px;
+      }
     }
 
     &--btn {
@@ -70,6 +94,10 @@
     border-radius: 20px;
     transition: all 0.2s;
 
+    // @media screen and (max-width: 480px) {
+    //   margin-right: 4.5rem;
+    // }
+
     &:hover {
       background-color: rgba($color: #fff, $alpha: 0.1);
     }
@@ -78,6 +106,44 @@
       width: 18px;
       height: auto;
       margin-right: 5px;
+    }
+  }
+}
+
+.app__menu {
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  display: none;
+  z-index: 10;
+  transition: all 0.3s;
+
+  @media screen and (max-width: 480px) {
+    display: flex;
+  }
+
+  & > * {
+    height: 2px;
+    border-radius: 2px;
+    background-color: #fff;
+    width: 100%;
+    transition: all 0.3s;
+  }
+
+  &.close {
+    .bar-1 {
+      transform: rotate(45deg) translate(3px, 9px);
+    }
+
+    .bar-2 {
+      background-color: transparent;
+    }
+
+    .bar-3 {
+      transform: rotate(-45deg) translate(3px, -9px);
     }
   }
 }

@@ -15,19 +15,35 @@
     align-items: center;
     justify-content: center;
 
+    @media screen and (max-width: 768px) {
+      width: 75%;
+    }
+
     span {
       margin-left: 1rem;
       font-size: 5rem;
 
+      @media screen and (max-width: 768px) {
+        font-size: 3rem;
+      }
+
       small {
         color: #1ed760;
         font-size: 2.5rem;
+
+        @media screen and (max-width: 768px) {
+          font-size: 1.8rem;
+        }
       }
     }
 
     svg {
       width: 150px;
       height: auto;
+
+      @media screen and (max-width: 768px) {
+        width: 90px;
+      }
     }
   }
 
@@ -36,6 +52,10 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
+
+    @media screen and (max-width: 768px) {
+      padding: 0;
+    }
   }
 
   &__field {
@@ -43,9 +63,18 @@
     min-width: 25rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    @media screen and (max-width: 768px) {
+      min-width: 15rem;
+    }
 
     label {
       font-size: 1.5rem;
+
+      @media screen and (max-width: 768px) {
+        font-size: 1rem;
+      }
     }
 
     input {
@@ -53,9 +82,15 @@
       padding: 6px 12px;
       font-size: 1.2rem;
       border-radius: 20px;
-      border: 2px solid #ccc;
+      border: 1px solid #ccc;
       outline: none;
       color: #fff;
+
+      @media screen and (max-width: 768px) {
+        padding: 3px 6px;
+        font-size: 1rem;
+        max-width: 10rem;
+      }
 
       &:focus {
         border-color: #1ed760;
@@ -74,6 +109,12 @@
     margin-top: 1rem;
     font-size: 1.3rem;
     transition: all 0.3s;
+
+    @media screen and (max-width: 768px) {
+      padding: 0.3rem 0.6rem;
+      margin-top: 0.7rem;
+      font-size: 1rem;
+    }
 
     &:hover {
       background-color: #1db954;

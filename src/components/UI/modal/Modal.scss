@@ -36,7 +36,7 @@
 .modal {
   color: #fff;
   width: 40%;
-  height: 28%;
+  height: 30%;
   max-height: 300px;
   background-color: #333;
   z-index: 100;
@@ -44,12 +44,46 @@
   display: flex;
   flex-direction: column;
 
+  @media screen and (max-width: 1200px) {
+    width: 50%;
+    height: 40%;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 60%;
+    height: 60%;
+  }
+
+  @media screen and (max-width: 740px) and (orientation: landscape) {
+    height: 75%;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 80%;
+  }
+
   &__title {
+    letter-spacing: 2px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 1rem 2rem;
     border-bottom: 1px solid #555;
+
+    @media screen and (max-width: 1200px) {
+      font-size: 0.9rem;
+      padding: 0.7rem 1.5rem;
+    }
+
+    @media screen and (max-width: 740px) and (orientation: landscape) {
+      font-size: 0.8rem;
+      padding: 0.3rem 1.2rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 0.75rem;
+      padding: 0.5em 1.5rem;
+    }
   }
 
   &__close {
@@ -60,6 +94,10 @@
     color: #c0392b;
     font-size: 2.5rem;
     transition: all 0.2s;
+
+    @media screen and (max-width: 480px) {
+      font-size: 2rem;
+    }
 
     &:hover {
       color: #aa372a;
@@ -80,6 +118,14 @@
     line-height: 1.5;
     flex: 1;
     overflow-y: scroll;
+
+    @media screen and (max-width: 740px) and (orientation: landscape) {
+      padding: 0.5rem 1.25rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      padding: 0.5rem 1.25rem;
+    }
 
     &::-webkit-scrollbar {
       width: 0.5em;

@@ -199,7 +199,7 @@ const Player = ({ currentPlaylist }) => {
         <ArrowIcon onClick={nextSong} />
 
         <LoopIcon
-          className={isLooping ? 'loop' : ''}
+          className={isLooping ? 'loop loop-icon' : 'loop-icon'}
           onClick={() => dispatch({ type: 'TOGGLE_LOOP' })}
         />
         {isLooping && <div className="dotl"></div>}

@@ -1,11 +1,14 @@
 import './User.scss';
 import { UserIcon } from '../../assets/icons/';
 import { useSelector } from 'react-redux';
+import { Header } from '../home/components';
 
 const User = () => {
   const user = useSelector((state) => state.auth.user);
+
   return (
     <div className="user">
+      <Header />
       <h1>
         User: <span>{user.email}</span>
       </h1>

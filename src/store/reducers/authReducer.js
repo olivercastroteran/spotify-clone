@@ -1,5 +1,5 @@
 const initState = {
-  isLoggedIn: true,
+  isLoggedIn: false,
   loading: false,
   user: {
     email: 'test@test.com',
