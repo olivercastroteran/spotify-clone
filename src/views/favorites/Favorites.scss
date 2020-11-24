@@ -40,6 +40,10 @@
       width: 90%;
     }
 
+    @media screen and (max-width: 740px) and (orientation: landscape) {
+      margin: 0 auto 2rem auto;
+    }
+
     h2 {
       margin-bottom: 1rem;
       letter-spacing: 2px;
@@ -61,6 +65,10 @@
       font-size: 1.3rem;
       padding-bottom: 1.25rem;
       border-bottom: 1px solid #555;
+
+      @media screen and (max-width: 480px) {
+        font-size: 1rem;
+      }
     }
   }
 }

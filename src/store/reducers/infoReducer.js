@@ -1,5 +1,6 @@
 const initState = {
   isOpen: false,
+  isSidebarOpen: false,
 };
 
 export const infoReducer = (state = initState, action) => {
@@ -13,6 +14,11 @@ export const infoReducer = (state = initState, action) => {
       return {
         ...state,
         isOpen: false,
+      };
+    case 'TOGGLE_SIDEBAR':
+      return {
+        ...state,
+        isSidebarOpen: !state.isSidebarOpen,
       };
     default:
       return state;

@@ -9,10 +9,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
-  z-index: 100;
+  z-index: 10;
 
   @media screen and (max-width: 900px) {
     height: 15vh;
+  }
+
+  @media screen and (max-width: 480px) {
+    display: grid;
+    grid-template-areas: 'album controls' 'album progres';
   }
 
   &__album {
@@ -25,6 +30,10 @@
     @media screen and (max-width: 768px) {
       margin: 0;
       min-width: 9rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      grid-area: album;
     }
 
     &--img {
@@ -63,6 +72,11 @@
       margin: 0 0.75rem;
     }
 
+    @media screen and (max-width: 480px) {
+      grid-area: progres;
+      margin: 0;
+    }
+
     &:hover {
       filter: brightness(1);
     }
@@ -88,6 +102,11 @@
     @media screen and (max-width: 768px) {
       margin: 0;
       min-width: 10rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      grid-area: controls;
+      min-width: 12rem;
     }
 
     & > * {

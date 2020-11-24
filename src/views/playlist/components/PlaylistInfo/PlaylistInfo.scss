@@ -10,8 +10,21 @@
     width: 93%;
   }
 
+  @media screen and (max-width: 740px) and (orientation: landscape) {
+    margin: 0 auto 2rem auto;
+  }
+
   h1 {
     margin-bottom: 1rem;
     letter-spacing: 2px;
+
+    @media screen and (max-width: 740px) and (orientation: landscape) {
+      margin-bottom: 0.6rem;
+      font-size: 1.7rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 1.5rem;
+    }
   }
 }
