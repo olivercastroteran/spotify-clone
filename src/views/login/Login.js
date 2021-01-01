@@ -69,6 +69,25 @@ const Login = () => {
         .catch((err) => alert(err.message));
   };
 
+  const handleDemoLogin = () => {
+    dispatch(setLoading(true));
+    auth
+      .signInWithEmailAndPassword('test@test.com', 'Test123')
+      .then((auth) => {
+        if (auth) {
+          //console.log(auth);
+          const user = {
+            email: auth.user.email,
+            uid: auth.user.uid,
+          };
+          dispatch(setLoading(false));
+          dispatch(loginAction(true));
+          dispatch(setUser(user));
+        }
+      })
+      .catch((err) => alert(err.message));
+  };
+
   return (
     <div className="login">
       <div className="login__logo">
@@ -103,6 +122,13 @@ const Login = () => {
         </div>
 
         <button className="login__btn">Login</button>
+        <button
+          className="login__btn demo"
+          type="button"
+          onClick={handleDemoLogin}
+        >
+          Demo Login
+        </button>
 
         {isError && <p className="login__error-msg">{message}</p>}
       </form>
