@@ -15,7 +15,12 @@ const User = () => {
       <div className="user__logo">
         <UserIcon />
       </div>
-      <p>UID: {user.uid}</p>
+      <p>
+        Contact:{' '}
+        <a href="https://oliverct.com/" target="_blank" rel="noreferrer">
+          oliverct.com
+        </a>
+      </p>
     </div>
   );
 };

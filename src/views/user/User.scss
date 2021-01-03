@@ -61,5 +61,37 @@
 
   p {
     margin-top: 3rem;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__btn {
+    cursor: pointer;
+    outline: none;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 30px;
+    padding: 0.3rem 2.5rem;
+    color: #fff;
+    background-color: #c0392b;
+    transition: background-color 0.3s;
+
+    &:hover {
+      transform: scale(1.05);
+      background-color: #af2f21;
+    }
+
+    &:active {
+      transform: scale(1);
+    }
   }
 }
